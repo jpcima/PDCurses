@@ -82,6 +82,7 @@ $(LIBOBJS) $(PDCOBJS) : $(PDCURSES_HEADERS)
 $(PDCOBJS) : $(PDCURSES_SDL_H)
 $(DEMOS) : $(PDCURSES_CURSES_H) $(LIBCURSES)
 tui.o tuidemo.o : $(PDCURSES_CURSES_H)
+testcase.o : $(PDCURSES_CURSES_H)
 terminfo.o: $(TERM_HEADER)
 panel.o ptest$(E): $(PANEL_HEADER)
 
@@ -109,6 +110,9 @@ testcurs$(E): $(demodir)/testcurs.c
 tuidemo$(E): tuidemo.o tui.o
 	$(LINK) tui.o tuidemo.o -o $@ $(LDFLAGS)
 
+testcase$(E): testcase.o
+	$(LINK) testcase.o -o $@ $(LDFLAGS)
+
 worm$(E): $(demodir)/worm.c
 	$(BUILD) $(DEMOFLAGS) -o $@ $< $(LDFLAGS)
 
@@ -123,6 +127,9 @@ tui.o: $(demodir)/tui.c $(demodir)/tui.h
 
 tuidemo.o: $(demodir)/tuidemo.c
 	$(BUILD) -c $(DEMOFLAGS) $(demodir)/tuidemo.c
+
+testcase.o: $(demodir)/testcase.c
+	$(BUILD) -c $(DEMOFLAGS) $(demodir)/testcase.c
 
 ncurses_testdir = $(HOME)/ncurses-5.9/test
 include $(demodir)/nctests.mif
